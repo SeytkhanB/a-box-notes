@@ -7,13 +7,20 @@ import './App.css'
 export default function App() {
 	const [squares, setSquares] = useState(Boxes)
 
-	// const squareElements = squares.map(square => {
-	// 	<Box key={square.id} on={square.on} />
-	// })
-	// THIS WAY ABOVE IS WRONG BECAUSE {} INSTEAD OF ()
+	function toggle(id) {
+		setSquares(prevSquares => {
+			return prevSquares.map(square => {
+				return square.id === id ? {...square, on: !square.on} : square
+			})
+		})
+	}
 
 	const squareElements = squares.map(square => (
-		<Box key={square.id} on={square.on} />
+		<Box
+			key={square.id}
+			on={square.on}
+			toggle={() => toggle(square.id)}
+		/>
 	))
 
 	return (
